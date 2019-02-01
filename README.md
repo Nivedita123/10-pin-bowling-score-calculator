@@ -1,4 +1,4 @@
-# 10-pin-bowling-score-calculator
+# 10 pin bowling score calculator
 
 Java program that calculates the score of a game of bowling (also known as “ten - pin
 bowling”)
