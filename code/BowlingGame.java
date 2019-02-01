@@ -30,11 +30,29 @@ public class BowlingGame {
 	 * used when frame 10 and frame 11 were strike
 	 */
 	public static final int BONUS_FRAME_2 = 12;
+
+	/**
+	 * max frames allowed including bonus frames
+	 */
 	public static final int MAX_FRAMES = 12;
+	/**
+	 * max pins that can be rolled in a frame
+	 */
 	public static final int MAX_PINS_ROLLED = 10;
+
+	/**
+	 * bonus rolls for strike
+	 */
 	public static final int STRIKE_BONUS = 2;
+
+	/**
+	 * bonus rolls for spare
+	 */
 	public static final int SPARE_BONUS = 1;
 
+	/**
+	 * array of frames to keep track of rolls and points
+	 */
 	public Frame[] frames;
 
 	/**
@@ -59,6 +77,7 @@ public class BowlingGame {
 	}
 
 	/**
+	 * Updates the score based on the number of pins knocked
 	 * 
 	 * @param pins - the no. of pins rolled in this roll
 	 */
@@ -68,7 +87,7 @@ public class BowlingGame {
 		if (!isFinished()) {
 
 			// number of pins rolled is valid
-			if (pins <= 10) {
+			if (pins <= MAX_PINS_ROLLED) {
 
 				// the no. of pins rolled is valid for the current attempt
 				if (isValidRoll(pins, attempt)) {
@@ -197,6 +216,14 @@ public class BowlingGame {
 		}
 	}
 
+	/**
+	 * Checks if the pins knocked are valid for this attempt
+	 * 
+	 * @param pins    - pins knocked
+	 * @param attempt - attempt to check
+	 * @return true if roll is valid for the attempt else return false
+	 * 
+	 */
 	public boolean isValidRoll(int pins, int attempt) {
 
 		if (frames[attempt].getFirstRoll() == EMPTY) {
@@ -216,10 +243,13 @@ public class BowlingGame {
 		}
 	}
 
+	/**
+	 * @return the current score of the game
+	 */
 	public int getScore() {
 
 		int ptr = EMPTY;
-		
+
 		// find the last frame with not - zero score
 		for (int i = frames.length - 1; i >= 0; i--) {
 
@@ -235,12 +265,17 @@ public class BowlingGame {
 			return frames[ptr].getPoints();
 	}
 
+	/**
+	 * Indicates whether the game is finished or not
+	 * 
+	 * @return true if the game is finished else false
+	 */
 	public boolean isFinished() {
 
 		if (attempt <= LAST_FRAME - 1) {
-			
+
 			return false;
-		} 
+		}
 		// EDGE CASES: when last rolls are strike/spare
 		else if (attempt == BONUS_FRAME_1 - 1) {
 
@@ -252,7 +287,9 @@ public class BowlingGame {
 				return true;
 			}
 
-		} else if (attempt == BONUS_FRAME_2 - 1) {
+		}
+		// EDGE CASES: when last rolls are strike/spare
+		else if (attempt == BONUS_FRAME_2 - 1) {
 
 			// strike
 			if (isStrike(LAST_FRAME - 1) && frames[LAST_FRAME - 1].getBonus() > 0) {
