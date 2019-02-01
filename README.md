@@ -47,5 +47,5 @@ Each frame has 2 rolls. The total points for the frame is calculated after all r
 2. `void addToTemp(int val)` - Adds a number to temp and updates it's value
 
 
-
-
+### 3. `class Main`
+The class with main method, to test the program
